@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Mady Shawarma"
+description = "An animation-led restaurant website for Mady, a shawarma shop with a bold red and yellow identity, a scroll-built wrap sequence, polished menu, inside story, and contact experience."
+version = "1.0.0"
+id = "artifacts/mady-shawarma"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26252
+
+[services.development]
+run = "pnpm --filter @workspace/mady-shawarma run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mady-shawarma", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mady-shawarma/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26252"
+BASE_PATH = "/"
